@@ -1,5 +1,5 @@
 use super::config::LlmConfig;
-use agentropic_cognition::BeliefBase;
+use z_cognition::BeliefBase;
 use tracing::warn;
 
 /// Call an LLM with the question and belief context
@@ -7,24 +7,35 @@ pub async fn ask_llm(question: &str, config: &LlmConfig, beliefs: &BeliefBase) -
     let client = reqwest::Client::new();
 
     // Build context from existing beliefs
-    let mut context = String::from("Here are verified facts about Agentropic:\n");
+    let mut context = String::from("Here are verified facts about ZeroicAI:\n");
     for (i, belief) in beliefs.all().enumerate() {
         if i >= 10 { break; }
         context.push_str(&format!("- {}\n", belief.value()));
     }
 
     let system_prompt = format!(
-        "You are a knowledgeable assistant for Agentropic, a multi-agent framework built in Rust.\n\
+        "You are a knowledgeable assistant for ZeroicAI, a multi-agent framework built in Rust.\n\
          {}\n\
          Use ONLY the facts above to answer. If the facts don't cover the question, say so honestly.\n\
-         Always spell the name correctly: Agentropic.\n\
+         Always spell the name correctly: ZeroicAI.\n\
          Answer concisely in 1-3 sentences.",
         context
     );
 
+    // Try primary provider first, fall back to the other
     match config.llm_provider.as_str() {
-        "ollama" => call_ollama(question, config, &system_prompt, &client).await,
-        "claude" => call_claude(question, config, &system_prompt, &client).await,
+        "ollama" => {
+            let result = call_ollama(question, config, &system_prompt, &client).await;
+            if result.is_some() { return result; }
+            warn!("Ollama unavailable, trying Claude fallback...");
+            call_claude(question, config, &system_prompt, &client).await
+        }
+        "claude" => {
+            let result = call_claude(question, config, &system_prompt, &client).await;
+            if result.is_some() { return result; }
+            warn!("Claude unavailable, trying Ollama fallback...");
+            call_ollama(question, config, &system_prompt, &client).await
+        }
         other => {
             warn!("Unknown LLM provider: {}", other);
             None
