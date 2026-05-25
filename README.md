@@ -1,12 +1,12 @@
-﻿# agentropic-runtime
+﻿# z-runtime
 
-[![Crates.io](https://img.shields.io/crates/v/agentropic-runtime.svg)](https://crates.io/crates/agentropic-runtime)
-[![Documentation](https://docs.rs/agentropic-runtime/badge.svg)](https://docs.rs/agentropic-runtime)
+[![Crates.io](https://img.shields.io/crates/v/z-runtime.svg)](https://crates.io/crates/z-runtime)
+[![Documentation](https://docs.rs/z-runtime/badge.svg)](https://docs.rs/z-runtime)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
 
 **High-performance execution engine, scheduler, and isolation runtime for autonomous agents.**
 
-`agentropic-runtime` is the execution foundation of the Agentropic ecosystem. It provides a robust, concurrent runtime environment for managing agent lifecycles, scheduling agent execution, enforcing resource limits, and ensuring fault isolation between agents.
+`z-runtime` is the execution foundation of the ZeroicAI ecosystem. It provides a robust, concurrent runtime environment for managing agent lifecycles, scheduling agent execution, enforcing resource limits, and ensuring fault isolation between agents.
 
 ---
 
@@ -28,7 +28,7 @@ This crate provides:
 
 The central execution environment for agents:
 ```rust
-use agentropic_runtime::{Runtime, RuntimeConfig};
+use z_runtime::{Runtime, RuntimeConfig};
 
 // Create runtime
 let runtime = Runtime::builder()
@@ -48,7 +48,7 @@ handle.await?;
 
 Controls when and how agents execute:
 ```rust
-use agentropic_runtime::{Scheduler, SchedulingPolicy};
+use z_runtime::{Scheduler, SchedulingPolicy};
 
 // Configure scheduler
 let scheduler = Scheduler::builder()
@@ -64,7 +64,7 @@ runtime.set_scheduler(scheduler);
 
 Interface for controlling running agents:
 ```rust
-use agentropic_runtime::AgentHandle;
+use z_runtime::AgentHandle;
 
 // Spawn agent
 let handle = runtime.spawn(my_agent).await?;
@@ -86,7 +86,7 @@ let result = handle.await?;
 
 Resource limits and sandboxing:
 ```rust
-use agentropic_runtime::{IsolationConfig, ResourceLimits};
+use z_runtime::{IsolationConfig, ResourceLimits};
 
 let isolation = IsolationConfig::builder()
     .memory_limit(512 * 1024 * 1024) // 512 MB
@@ -102,7 +102,7 @@ let handle = runtime.spawn_isolated(agent, isolation).await?;
 
 Automatic failure recovery:
 ```rust
-use agentropic_runtime::{Supervisor, RestartPolicy};
+use z_runtime::{Supervisor, RestartPolicy};
 
 let supervisor = Supervisor::builder()
     .restart_policy(RestartPolicy::OnFailure)
@@ -164,15 +164,15 @@ runtime.supervise(agent, supervisor).await?;
 Add to your `Cargo.toml`:
 ```toml
 [dependencies]
-agentropic-runtime = "0.1.0"
-agentropic-core = "0.1.0"
+z-runtime = "0.1.0"
+z-core = "0.1.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
 ### Basic Runtime Usage
 ```rust
-use agentropic_runtime::{Runtime, RuntimeConfig};
-use agentropic_core::Agent;
+use z_runtime::{Runtime, RuntimeConfig};
+use z_core::Agent;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -196,7 +196,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Multi-Agent Execution
 ```rust
-use agentropic_runtime::Runtime;
+use z_runtime::Runtime;
 
 async fn run_multi_agent_system() -> Result<(), Box<dyn std::error::Error>> {
     let runtime = Runtime::builder()
@@ -224,7 +224,7 @@ async fn run_multi_agent_system() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Custom Scheduling
 ```rust
-use agentropic_runtime::{Scheduler, SchedulingPolicy, Priority};
+use z_runtime::{Scheduler, SchedulingPolicy, Priority};
 
 async fn priority_scheduling() -> Result<(), Box<dyn std::error::Error>> {
     let scheduler = Scheduler::builder()
@@ -254,7 +254,7 @@ async fn priority_scheduling() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Resource Isolation
 ```rust
-use agentropic_runtime::{IsolationConfig, ResourceLimits};
+use z_runtime::{IsolationConfig, ResourceLimits};
 
 async fn isolated_execution() -> Result<(), Box<dyn std::error::Error>> {
     let runtime = Runtime::builder()
@@ -297,7 +297,7 @@ async fn isolated_execution() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Supervision and Recovery
 ```rust
-use agentropic_runtime::{Supervisor, RestartPolicy, BackoffStrategy};
+use z_runtime::{Supervisor, RestartPolicy, BackoffStrategy};
 
 async fn supervised_agents() -> Result<(), Box<dyn std::error::Error>> {
     let runtime = Runtime::new(RuntimeConfig::default())?;
@@ -330,7 +330,7 @@ async fn supervised_agents() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Agent Lifecycle Hooks
 ```rust
-use agentropic_runtime::{Runtime, LifecycleHooks};
+use z_runtime::{Runtime, LifecycleHooks};
 
 async fn with_lifecycle_hooks() -> Result<(), Box<dyn std::error::Error>> {
     let hooks = LifecycleHooks::builder()
@@ -358,7 +358,7 @@ async fn with_lifecycle_hooks() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Metrics and Observability
 ```rust
-use agentropic_runtime::{Runtime, MetricsConfig};
+use z_runtime::{Runtime, MetricsConfig};
 
 async fn with_metrics() -> Result<(), Box<dyn std::error::Error>> {
     let runtime = Runtime::builder()
@@ -450,18 +450,18 @@ async fn with_metrics() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Related Crates
 
-- **[agentropic-core](../agentropic-core)** - Agent primitives and traits
-- **[agentropic-messaging](../agentropic-messaging)** - Agent communication
-- **[agentropic-cognition](../agentropic-cognition)** - Reasoning and planning
-- **[agentropic-patterns](../agentropic-patterns)** - Multi-agent coordination
+- **[z-core](../z-core)** - Agent primitives and traits
+- **[z-messaging](../z-messaging)** - Agent communication
+- **[z-cognition](../z-cognition)** - Reasoning and planning
+- **[z-patterns](../z-patterns)** - Multi-agent coordination
 
 ---
 
 ## Documentation
 
-Full API documentation is available on [docs.rs](https://docs.rs/agentropic-runtime).
+Full API documentation is available on [docs.rs](https://docs.rs/z-runtime).
 
-For guides and tutorials, see [agentropic-docs](https://github.com/agentropic/agentropic-docs).
+For guides and tutorials, see [z-docs](https://github.com/zeroicai/z-docs).
 
 ---
 
@@ -499,4 +499,4 @@ at your option.
 
 ---
 
-*Part of the [Agentropic](https://github.com/agentropic) ecosystem for agent-oriented programming in Rust.*
+*Part of the [ZeroicAI](https://github.com/zeroicai) ecosystem for agent-oriented programming in Rust.*

@@ -18,25 +18,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        path: agentropic-runtime
+        path: z-runtime
     
-    - name: Checkout agentropic-core
+    - name: Checkout z-core
       uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-core
-        path: agentropic-core
+        repository: ZeroicAI/z-core
+        path: z-core
     
-    - name: Checkout agentropic-messaging
+    - name: Checkout z-messaging
       uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-messaging
-        path: agentropic-messaging
+        repository: ZeroicAI/z-messaging
+        path: z-messaging
     
-    - name: Checkout agentropic-cognition
+    - name: Checkout z-cognition
       uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-cognition
-        path: agentropic-cognition
+        repository: ZeroicAI/z-cognition
+        path: z-cognition
     
     - name: Install Rust toolchain
       uses: dtolnay/rust-toolchain@stable
@@ -46,26 +46,26 @@ jobs:
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2
       with:
-        workspaces: agentropic-runtime
+        workspaces: z-runtime
     
     - name: Check formatting
-      working-directory: agentropic-runtime
+      working-directory: z-runtime
       run: cargo fmt --all -- --check
     
     - name: Build
-      working-directory: agentropic-runtime
+      working-directory: z-runtime
       run: cargo build --verbose
     
     - name: Run Clippy
-      working-directory: agentropic-runtime
+      working-directory: z-runtime
       run: cargo clippy --all-targets --all-features -- -D warnings
     
     - name: Run tests
-      working-directory: agentropic-runtime
+      working-directory: z-runtime
       run: cargo test --verbose
     
     - name: Run examples
-      working-directory: agentropic-runtime
+      working-directory: z-runtime
       run: |
         cargo run --example basic_runtime
         cargo run --example scheduled_agents
@@ -78,24 +78,24 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        path: agentropic-runtime
+        path: z-runtime
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-core
-        path: agentropic-core
+        repository: ZeroicAI/z-core
+        path: z-core
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-messaging
-        path: agentropic-messaging
+        repository: ZeroicAI/z-messaging
+        path: z-messaging
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-cognition
-        path: agentropic-cognition
+        repository: ZeroicAI/z-cognition
+        path: z-cognition
     - uses: dtolnay/rust-toolchain@stable
     - uses: Swatinem/rust-cache@v2
       with:
-        workspaces: agentropic-runtime
-    - working-directory: agentropic-runtime
+        workspaces: z-runtime
+    - working-directory: z-runtime
       run: cargo test --verbose
 
   test-macos:
@@ -104,22 +104,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        path: agentropic-runtime
+        path: z-runtime
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-core
-        path: agentropic-core
+        repository: ZeroicAI/z-core
+        path: z-core
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-messaging
-        path: agentropic-messaging
+        repository: ZeroicAI/z-messaging
+        path: z-messaging
     - uses: actions/checkout@v3
       with:
-        repository: agentropic/agentropic-cognition
-        path: agentropic-cognition
+        repository: ZeroicAI/z-cognition
+        path: z-cognition
     - uses: dtolnay/rust-toolchain@stable
     - uses: Swatinem/rust-cache@v2
       with:
-        workspaces: agentropic-runtime
-    - working-directory: agentropic-runtime
+        workspaces: z-runtime
+    - working-directory: z-runtime
       run: cargo test --verbose

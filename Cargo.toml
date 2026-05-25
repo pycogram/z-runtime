@@ -1,20 +1,20 @@
 [package]
-name = "agentropic-runtime"
+name = "z-runtime"
 version = "0.1.0"
 edition = "2021"
-authors = ["Agentropic <agentropic@gmail.com>"]
+authors = ["ZeroicAI <devzeroicai@gmail.com>"]
 license = "MIT OR Apache-2.0"
 description = "Runtime, execution engine, scheduling, and supervision for agents"
-repository = "https://github.com/agentropic/agentropic-runtime"
-documentation = "https://docs.rs/agentropic-runtime"
+repository = "https://github.com/ZeroicAI/z-runtime"
+documentation = "https://docs.rs/z-runtime"
 keywords = ["agents", "runtime", "async", "scheduler", "supervision"]
 categories = ["simulation", "asynchronous"]
 readme = "README.md"
 
 [dependencies]
-agentropic-core = { git = "https://github.com/agentropic/agentropic-core", branch = "main" }
-agentropic-messaging = { git = "https://github.com/agentropic/agentropic-messaging", branch = "main" }
-agentropic-cognition = { git = "https://github.com/agentropic/agentropic-cognition", branch = "main" }
+z-core = { git = "https://github.com/ZeroicAI/z-core", branch = "main" }
+z-messaging = { git = "https://github.com/ZeroicAI/z-messaging", branch = "main" }
+z-cognition = { git = "https://github.com/ZeroicAI/z-cognition", branch = "main" }
 
 async-trait = "0.1"
 tokio = { version = "1.0", features = ["full"] }
