@@ -1,7 +1,7 @@
-use agentropic_core::{Agent, AgentContext, AgentId, AgentResult};
-use agentropic_cognition::Rule;
-use agentropic_runtime::prelude::*;
-use agentropic_runtime::{CognitiveAgent, LlmConfig};
+use z_core::{Agent, AgentContext, AgentId, AgentResult};
+use z_cognition::Rule;
+use z_runtime::prelude::*;
+use z_runtime::{CognitiveAgent, LlmConfig};
 use async_trait::async_trait;
 
 /// Agent that asks questions
@@ -17,9 +17,9 @@ impl CuriousAgent {
         Self {
             id: AgentId::new(),
             questions: vec![
-                "What is Agentropic?",
+                "What is ZeroicAI?",
                 "What patterns does it support?",
-                "Can Agentropic agents collaborate with external APIs?",
+                "Can ZeroicAI agents collaborate with external APIs?",
             ],
             index: 0,
             waiting: false,
@@ -68,7 +68,7 @@ impl Agent for CuriousAgent {
 #[tokio::main]
 async fn main() -> Result<(), RuntimeError> {
     println!("╔════════════════════════════════════════════════════════╗");
-    println!("║   Agentropic — Cognitive Agent Demo                    ║");
+    println!("║   ZeroicAI — Cognitive Agent Demo                    ║");
     println!("║   Using CognitiveAgent from framework                  ║");
     println!("╚════════════════════════════════════════════════════════╝\n");
 
@@ -77,8 +77,8 @@ async fn main() -> Result<(), RuntimeError> {
 
     // Add reasoning rules
     thinker.add_rule(Rule::new("topic:what_is")
-        .with_condition("what").with_condition("agentropic").with_condition("about")
-        .with_conclusion("what_is_agentropic"));
+        .with_condition("what").with_condition("zeroicai").with_condition("about")
+        .with_conclusion("what_is_zeroicai"));
     thinker.add_rule(Rule::new("topic:patterns")
         .with_condition("pattern").with_condition("support").with_condition("organization")
         .with_conclusion("patterns"));

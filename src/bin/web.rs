@@ -1,5 +1,5 @@
-use agentropic_cognition::Rule;
-use agentropic_runtime::CognitiveAgent;
+use z_cognition::Rule;
+use z_runtime::CognitiveAgent;
 use axum::{extract::State, http::StatusCode, response::Html, routing::{get, post}, Json, Router};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -46,10 +46,10 @@ fn add_rules(agent: &mut CognitiveAgent) {
     agent.add_rule(Rule::new("greeting:greetings").with_condition("greetings").with_conclusion("greeting"));
     agent.add_rule(Rule::new("greeting:greeting").with_condition("greeting").with_conclusion("greeting"));
 
-    // -- What is Agentropic (general) --
+    // -- What is ZeroicAI (general) --
     agent.add_rule(Rule::new("topic:what_is")
-        .with_condition("what").with_condition("is").with_condition("agentropic")
-        .with_conclusion("what_is_agentropic"));
+        .with_condition("what").with_condition("is").with_condition("zeroicai")
+        .with_conclusion("what_is_zeroicai"));
 
     // -- Layman / simple explanation --
     agent.add_rule(Rule::new("topic:layman")

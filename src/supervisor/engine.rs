@@ -1,5 +1,5 @@
 use super::{HealthCheck, RestartPolicy};
-use agentropic_core::AgentId;
+use z_core::AgentId;
 use std::collections::HashMap;
 
 /// Supervisor for agent fault tolerance

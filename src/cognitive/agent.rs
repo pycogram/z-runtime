@@ -1,7 +1,7 @@
 use super::config::LlmConfig;
 use super::llm::ask_llm;
-use agentropic_cognition::{Belief, BeliefBase, ReasoningEngine, Rule};
-use agentropic_core::{Agent, AgentContext, AgentId, AgentResult};
+use z_cognition::{Belief, BeliefBase, ReasoningEngine, Rule};
+use z_core::{Agent, AgentContext, AgentId, AgentResult};
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 use std::fs;

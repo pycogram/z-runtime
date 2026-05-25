@@ -1,5 +1,5 @@
-use agentropic_core::{Agent, AgentContext, AgentId, AgentResult};
-use agentropic_runtime::prelude::*;
+use z_core::{Agent, AgentContext, AgentId, AgentResult};
+use z_runtime::prelude::*;
 use async_trait::async_trait;
 
 /// An agent that asks a question on its first tick
@@ -28,8 +28,8 @@ impl Agent for AskerAgent {
 
     async fn execute(&mut self, ctx: &AgentContext) -> AgentResult<()> {
         if !self.asked {
-            println!("  [Asker] → Sending: \"What patterns does Agentropic support?\"");
-            ctx.send_message("responder", "query", "What patterns does Agentropic support?");
+            println!("  [Asker] → Sending: \"What patterns does ZeroicAI support?\"");
+            ctx.send_message("responder", "query", "What patterns does ZeroicAI support?");
             self.asked = true;
         }
         tokio::time::sleep(std::time::Duration::from_millis(200)).await;
@@ -55,7 +55,7 @@ impl Agent for AskerAgent {
     }
 }
 
-/// An agent that answers questions about Agentropic
+/// An agent that answers questions about ZeroicAI
 struct ResponderAgent {
     id: AgentId,
 }
@@ -100,7 +100,7 @@ impl Agent for ResponderAgent {
         tokio::time::sleep(std::time::Duration::from_millis(300)).await;
 
         // Reply
-        let answer = "Agentropic supports 8 patterns: Hierarchy, Swarm, Coalition, Market, Federation, Team, Holarchy, and Blackboard.";
+        let answer = "ZeroicAI supports 8 patterns: Hierarchy, Swarm, Coalition, Market, Federation, Team, Holarchy, and Blackboard.";
         println!("  [Responder] → Replying: \"{}\"", answer);
         ctx.send_message("asker", "inform", answer);
 
@@ -153,7 +153,7 @@ impl Agent for ObserverAgent {
 #[tokio::main]
 async fn main() -> Result<(), RuntimeError> {
     println!("╔══════════════════════════════════════════╗");
-    println!("║   Agentropic — Agents Talking Demo       ║");
+    println!("║   ZeroicAI — Agents Talking Demo       ║");
     println!("╚══════════════════════════════════════════╝\n");
 
     let runtime = Runtime::new();

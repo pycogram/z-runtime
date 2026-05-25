@@ -1,4 +1,4 @@
-﻿# Contributing to agentropic-runtime
+﻿# Contributing to z-runtime
 
 Thank you for your interest in contributing!
 

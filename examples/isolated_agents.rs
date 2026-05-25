@@ -1,4 +1,4 @@
-use agentropic_runtime::prelude::*;
+use z_runtime::prelude::*;
 
 fn main() {
     println!("=== Isolated Agents Example ===\n");

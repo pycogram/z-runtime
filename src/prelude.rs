@@ -33,4 +33,4 @@ pub use crate::tracing_agent::Tracer;
 pub use crate::RuntimeError;
 
 // Re-export from core
-pub use agentropic_core::prelude::*;
+pub use z_core::prelude::*;

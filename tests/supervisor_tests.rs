@@ -1,4 +1,4 @@
-use agentropic_runtime::prelude::*;
+use z_runtime::prelude::*;
 use std::time::Duration;
 
 #[test]
