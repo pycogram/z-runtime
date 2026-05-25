@@ -1,5 +1,5 @@
 use super::{IsolationConfig, ResourceLimits};
-use agentropic_core::AgentId;
+use z_core::AgentId;
 
 /// Sandbox environment for isolated agent execution
 pub struct Sandbox {

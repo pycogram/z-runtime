@@ -1,4 +1,4 @@
-use agentropic_core::AgentId;
+use z_core::AgentId;
 
 /// Namespace for agent isolation
 pub struct Namespace {
