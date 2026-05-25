@@ -1,4 +1,4 @@
-use agentropic_runtime::prelude::*;
+use z_runtime::prelude::*;
 use criterion::{black_box, criterion_group, criterion_main, Criterion, Throughput};
 
 fn scheduler_throughput(c: &mut Criterion) {
