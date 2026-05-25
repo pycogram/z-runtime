@@ -1,5 +1,5 @@
-use agentropic_core::{Agent, AgentContext, AgentId, AgentResult};
-use agentropic_runtime::prelude::*;
+use z_core::{Agent, AgentContext, AgentId, AgentResult};
+use z_runtime::prelude::*;
 use async_trait::async_trait;
 
 /// A simple agent that prints a message each time it executes
