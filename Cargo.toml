@@ -12,9 +12,9 @@ categories = ["simulation", "asynchronous"]
 readme = "README.md"
 
 [dependencies]
-z-core = { git = "https://github.com/zeroicai/z-core", branch = "main" }
-z-messaging = { git = "https://github.com/zeroicai/z-messaging", branch = "main" }
-z-cognition = { git = "https://github.com/zeroicai/z-cognition", branch = "main" }
+z-core = { git = "https://github.com/pycogram/z-core", branch = "main" }
+z-messaging = { git = "https://github.com/pycogram/z-messaging", branch = "main" }
+z-cognition = { git = "https://github.com/pycogram/z-cognition", branch = "main" }
 
 async-trait = "0.1"
 tokio = { version = "1.0", features = ["full"] }
