@@ -381,10 +381,11 @@ async fn main() {
         .route("/ask", post(ask_handler))
         .with_state(shared);
 
-    let addr = "0.0.0.0:3001";
-    println!("  Server running at http://localhost:3001");
+    let port = std::env::var("PORT").unwrap_or_else(|_| "3001".to_string());
+    let addr = format!("0.0.0.0:{}", port);
+    println!("  Server running at http://localhost:{}", port);
     println!("  Press Ctrl+C to stop\n");
 
-    let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }
