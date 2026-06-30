@@ -1,10 +1,10 @@
 use crate::{RuntimeConfig, RuntimeError, RuntimeHandle};
-use crate::supervisor::{RestartPolicy, RestartStrategy};
+use crate::supervisor::{RestartPolicy, RestartStrategy, Supervisor};
 use z_core::{Agent, AgentContext, AgentId};
 use z_messaging::{Message, Performative, Router};
 use std::collections::HashMap;
 use std::sync::Arc;
-use tokio::sync::{watch, mpsc, RwLock};
+use tokio::sync::{watch, mpsc, RwLock, Mutex};
 use tokio::task::JoinHandle;
 use tracing::{info, error, warn};
 
@@ -23,6 +23,7 @@ pub struct Runtime {
     running: Arc<RwLock<bool>>,
     router: Router,
     name_registry: Arc<RwLock<HashMap<String, AgentId>>>,
+    supervisor: Arc<Mutex<Supervisor>>,
 }
 
 impl Runtime {
@@ -37,6 +38,7 @@ impl Runtime {
             running: Arc::new(RwLock::new(false)),
             router: Router::new(),
             name_registry: Arc::new(RwLock::new(HashMap::new())),
+            supervisor: Arc::new(Mutex::new(Supervisor::new("runtime"))),
         }
     }
 
@@ -83,6 +85,8 @@ impl Runtime {
         }
 
         let (shutdown_tx, shutdown_rx) = watch::channel(false);
+
+        self.supervisor.lock().await.supervise(agent_id, policy.clone());
 
         info!("[{}] Spawning agent '{}' (restart: {:?})", agent_id, agent_name, policy.strategy());
 
@@ -166,6 +170,11 @@ impl Runtime {
 
     pub fn handle(&self) -> RuntimeHandle {
         RuntimeHandle::new(self.agents.clone(), self.running.clone())
+    }
+
+    /// Access the supervisor to inspect agent policies and health state
+    pub fn supervisor(&self) -> &Arc<Mutex<Supervisor>> {
+        &self.supervisor
     }
 
     pub async fn shutdown(self) -> Result<(), RuntimeError> {
