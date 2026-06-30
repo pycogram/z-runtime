@@ -2,313 +2,323 @@
   "beliefs": [
     {
       "key": "greeting",
-      "value": "Hello! I'm the ZeroicAI CognitiveAgent. Ask me anything about the framework — crates, patterns, BDI, runtime, products, or how to get started.",
+      "value": "Hello! I'm the ZeroicAI CognitiveAgent — powered by the same framework I'm here to explain. Ask me anything: crates, patterns, BDI cognition, runtime internals, examples, deployment, or how to get started.",
       "certainty": 1.0
     },
     {
       "key": "what_is_zeroicai",
-      "value": "ZeroicAI is a modular multi-agent framework built in Rust. It provides everything needed to build autonomous, intelligent agent systems: lifecycle management, FIPA-compliant messaging, BDI cognitive architecture, 8 organizational patterns, and a supervised async runtime. Think Erlang/OTP but for AI agents.",
+      "value": "ZeroicAI is a modular multi-agent framework built in Rust. It gives you everything needed to build autonomous, intelligent agent systems: supervised lifecycle management, FIPA-compliant messaging, BDI cognitive architecture, 8 organizational patterns, and a high-performance async runtime built on Tokio. Think Erlang/OTP — but for AI agents, written in Rust.",
       "certainty": 1.0
     },
     {
       "key": "layman",
-      "value": "In simple terms, ZeroicAI is a toolkit for building smart programs that work together as a team. Each 'agent' is like a little worker that can think, communicate with other workers, and do its job independently. You define what each agent does — the framework handles running them, delivering messages, and restarting them if they crash.",
+      "value": "In plain terms: ZeroicAI is a toolkit for building programs that work together as a team of autonomous workers. Each 'agent' is a little brain that can think, communicate with other agents, and act on its own. You define what each agent does — ZeroicAI handles running them, passing messages between them, and restarting them if they crash. No LLM required.",
       "certainty": 1.0
     },
     {
       "key": "crates",
-      "value": "ZeroicAI has 5 core crates: z-core (Agent trait, lifecycle, identity), z-messaging (Router, mailboxes, FIPA performatives), z-cognition (BDI, reasoning, planning, utility), z-patterns (8 organizational patterns), and z-runtime (scheduler, supervisor, circuit breaker, metrics). The 'zeroicai' facade crate re-exports all five.",
+      "value": "ZeroicAI is a Cargo workspace with 5 core crates: z-core (Agent trait, lifecycle, identity), z-messaging (Router, mailboxes, FIPA performatives), z-cognition (BDI, reasoning engine, planner, utility), z-patterns (8 organizational patterns), and z-runtime (scheduler, supervisor, circuit breaker, metrics, sandbox). The 'zeroicai' facade crate re-exports all five for convenience.",
       "certainty": 1.0
     },
     {
       "key": "z_core",
-      "value": "z-core is the foundation crate. It defines the Agent trait with four methods: id() returns a UUID-based AgentId, initialize() sets up agent state, execute() runs the main logic in a loop, and shutdown() cleans up resources. It also provides AgentContext, AgentState (Created, Initialized, Running, Paused, Stopped), and error types.",
+      "value": "z-core is the foundation crate. It defines: Agent trait (id, initialize, execute, shutdown — all async), AgentId (UUID v4-based unique identity), AgentState (Created → Initialized → Running → Paused → Stopped), AgentContext (logging, message sending), and AgentResult/AgentError. Every other crate depends on z-core.",
       "certainty": 1.0
     },
     {
       "key": "z_messaging",
-      "value": "z-messaging handles all communication. Key types: Router (delivers messages by agent name), Message (typed envelope with sender, performative, content), MessageBuilder (fluent API for constructing messages), and async Mailbox with bounded capacity. Supports FIPA performatives and request-reply protocol.",
+      "value": "z-messaging handles all inter-agent communication. Key types: Router (delivers messages by agent name), Message (typed envelope with sender, performative, content), MessageBuilder (fluent construction API), async Mailbox with bounded capacity, and RequestReply protocol for typed conversations. Implements 11 FIPA ACL performatives.",
       "certainty": 1.0
     },
     {
       "key": "z_cognition",
-      "value": "z-cognition provides BDI cognitive architecture: BeliefBase stores world knowledge as key-value pairs with certainty scores, ReasoningEngine matches rules against facts with confidence scoring, UtilityFunction evaluates decision options numerically, and Planner creates action sequences from preconditions and effects.",
+      "value": "z-cognition provides cognitive architecture: BeliefBase (queryable key-value knowledge store with certainty scores), ReasoningEngine (forward-chaining rule matching with confidence scoring), UtilityFunction (numerical decision scoring over options), and Planner (BFS STRIPS forward-search — finds the shortest action sequence from preconditions to a goal state). BDI is built on top of these.",
       "certainty": 1.0
     },
     {
       "key": "z_patterns",
-      "value": "z-patterns provides 8 organizational patterns for structuring multi-agent systems: Hierarchy (command chain), Swarm (emergent coordination), Market (auction-based allocation), Coalition (dynamic alliances), Holarchy (nested autonomy), Federation (governance and voting), Blackboard (shared knowledge space), and Team (role-based groups).",
+      "value": "z-patterns provides 8 organizational patterns for structuring multi-agent systems: Hierarchy (command chains with levels), Swarm (emergent decentralized coordination), Market (auction-based task allocation), Coalition (dynamic temporary alliances), Holarchy (nested autonomous holons), Federation (governance and weighted voting), Blackboard (shared knowledge space), and Team (fixed role groups). Each pattern now includes a spawn_agents() method that bridges directly into z-runtime.",
       "certainty": 1.0
     },
     {
       "key": "z_runtime",
-      "value": "z-runtime is the execution engine. It spawns agents as async Tokio tasks, runs the lifecycle loop (initialize → execute → shutdown), routes messages via the Router, and supervises agents with configurable restart policies. Also provides a round-robin Scheduler, CircuitBreaker for fault tolerance, MetricsRegistry for observability, and Sandbox for agent isolation.",
+      "value": "z-runtime is the execution engine built on Tokio. It spawns agents as async tasks, runs the lifecycle loop (initialize → execute → shutdown), routes messages via Router, and supervises agents with configurable restart policies. Also provides: Scheduler (round-robin, priority, fair-share, FCFS), CircuitBreaker (3-state fault tolerance), MetricsRegistry (counters, gauges, histograms), and Sandbox (CPU/memory/thread quotas per agent).",
       "certainty": 1.0
     },
     {
       "key": "patterns",
-      "value": "ZeroicAI supports 8 organizational patterns: (1) Hierarchy — command chains with strategic/tactical/operational levels. (2) Swarm — decentralized emergent behavior. (3) Market — auction-based task allocation. (4) Coalition — temporary capability-based alliances. (5) Holarchy — recursive nested autonomous units. (6) Federation — governance with weighted voting. (7) Blackboard — shared collaborative knowledge space. (8) Team — fixed role-based coordination.",
+      "value": "ZeroicAI ships 8 organizational patterns: (1) Hierarchy — command chains with strategic/tactical/operational levels. (2) Swarm — decentralized emergent behavior from local rules. (3) Market — auction-based task allocation (English, Dutch, Vickrey, Sealed-bid). (4) Coalition — temporary capability-based alliances. (5) Holarchy — recursive nested autonomous holons. (6) Federation — weighted voting and governance. (7) Blackboard — shared collaborative knowledge space. (8) Team — fixed role-based coordination.",
       "certainty": 1.0
     },
     {
       "key": "hierarchy",
-      "value": "Hierarchy pattern organizes agents in command chains with three levels: Strategic (high-level planning and goal setting), Tactical (breaking goals into sub-tasks), and Operational (executing tasks). Orders flow down the chain, reports and results flow up. Ideal for structured delegation systems.",
+      "value": "Hierarchy pattern organizes agents in command chains with three levels: Strategic (high-level planning and goal setting), Tactical (breaking goals into sub-tasks and delegating), and Operational (executing the actual tasks). Orders flow down, reports flow up. Ideal for structured delegation: a CEO agent at the top, manager agents in the middle, worker agents at the bottom.",
       "certainty": 1.0
     },
     {
       "key": "swarm",
-      "value": "Swarm pattern enables decentralized coordination without a central controller. Agents follow local rules that produce emergent global behavior: flocking (separation, alignment, cohesion), foraging (resource discovery and collection), and consensus voting. Inspired by biological swarm intelligence — ants, bees, bird flocks.",
+      "value": "Swarm pattern enables decentralized coordination with no central controller. Agents follow simple local rules that produce emergent global behavior: flocking (separation, alignment, cohesion), foraging (resource discovery and collection), and consensus voting. Inspired by biological swarm intelligence — ants, bees, starling murmurations. Scales linearly with agent count.",
       "certainty": 1.0
     },
     {
       "key": "market",
-      "value": "Market pattern allocates tasks and resources through auctions. Supports four auction types: English (ascending price, highest bid wins), Dutch (descending price, first accept wins), Vickrey (sealed second-price, incentive-compatible), and Sealed-bid (simultaneous private bids). Agents compete as buyers and sellers with configurable bidding strategies.",
+      "value": "Market pattern allocates tasks through auctions. Supports four auction types: English (ascending bid, highest wins), Dutch (descending price, first-accept wins), Vickrey (sealed second-price — incentive-compatible), and Sealed-bid (simultaneous private bids). Agents participate as buyers or sellers with configurable bidding strategies. Used in trading systems, resource allocation, and task markets.",
       "certainty": 1.0
     },
     {
       "key": "coalition",
-      "value": "Coalition pattern lets agents form temporary alliances based on capability matching. Agents with complementary skills join forces to tackle tasks none could handle alone, share resources and information, then disband when the task is complete. Useful for dynamic task allocation in uncertain environments.",
+      "value": "Coalition pattern lets agents form temporary alliances based on capability matching. Agents with complementary skills join forces for tasks none could handle alone — share resources, coordinate actions, then disband when done. Supports dynamic membership: agents join and leave as tasks evolve. Useful in dynamic environments where no fixed team structure works.",
       "certainty": 1.0
     },
     {
       "key": "holarchy",
-      "value": "Holarchy pattern creates recursive nested autonomous units called holons. Each holon is simultaneously a whole (self-contained, autonomous) and a part (member of a larger system). Supports both top-down coordination and bottom-up emergence. Ideal for complex systems that need both local autonomy and global coherence.",
+      "value": "Holarchy pattern creates recursive nested autonomous units called holons. Each holon is simultaneously a whole (self-contained, self-governing) and a part (member of a larger holon above it). Supports top-down coordination and bottom-up emergence at every scale. Ideal for complex adaptive systems — city simulations, biological models, distributed organizations.",
       "certainty": 1.0
     },
     {
       "key": "federation",
-      "value": "Federation pattern provides governance through weighted voting and policy thresholds. Agents participate in collective decision-making: propose policies, vote with configurable weights, enforce rules across the federation. Supports democratic, oligarchic, and threshold-based governance models.",
+      "value": "Federation pattern provides governance through weighted voting and policy thresholds. Member agents propose policies, vote with configurable weights, and collectively enforce rules. Supports democratic (one-agent one-vote), oligarchic (weighted power), and supermajority (two-thirds threshold) governance models. Useful for decentralized autonomous organizations and multi-stakeholder systems.",
       "certainty": 1.0
     },
     {
       "key": "blackboard",
-      "value": "Blackboard pattern provides a shared knowledge space where multiple agents collaborate. Agents post partial solutions, observations, or data to the blackboard. Other agents read it, build upon it, and post refined solutions. Specialist agents (knowledge sources) each handle what they're good at. Classic AI problem-solving architecture.",
+      "value": "Blackboard pattern provides a shared knowledge space where specialist agents collaborate. Agents post partial solutions, observations, or data to the blackboard. Other agents read it, build upon it, and post refined solutions. Each specialist (knowledge source) handles only what it's good at. Classic AI architecture — originally used in speech recognition systems. ZeroicAI's Blackboard struct is an in-memory HashMap with a spawn_agents() bridge to the runtime.",
       "certainty": 1.0
     },
     {
       "key": "team",
-      "value": "Team pattern enables fixed-role cooperative groups. Three roles: Leader (sets objectives and coordinates the team), Coordinator (manages task assignments and dependencies), Executor (performs the actual work). Each agent has a defined role and clear responsibilities. Best for stable, well-defined collaborative tasks.",
+      "value": "Team pattern enables fixed-role cooperative groups. Three roles: Leader (sets objectives and coordinates), Coordinator (manages task assignments and dependencies), Executor (does the actual work). Teams have stable membership with clear accountability. spawn_agents() automatically sets the first Leader as team leader. Best for predictable, well-defined collaborative workflows.",
       "certainty": 1.0
     },
     {
       "key": "messaging",
-      "value": "Agents communicate via a Router using FIPA-compliant messages. Each message has: sender AgentId, receiver name, Performative (the intent), and content (any serializable data). Messages are delivered asynchronously via bounded mailboxes. The request-reply protocol provides typed conversations between agents.",
+      "value": "Agents communicate via the Router using FIPA-compliant messages. Each message has: sender AgentId, receiver name, Performative (the intent), and content (any serializable payload). Messages are delivered asynchronously via bounded mailboxes — if the mailbox is full, the send blocks until space is available. The RequestReply protocol adds typed, correlated conversations on top of raw messages.",
       "certainty": 1.0
     },
     {
       "key": "performatives",
-      "value": "FIPA performatives define message intent: Inform (share a fact), Request (ask for an action), Query (ask for information), Propose (suggest a course of action), Accept (agree to a proposal), Reject (decline a proposal), CFP (Call For Proposals — broadcast a task), Confirm (acknowledge a fact), Disconfirm (deny a belief), Subscribe (register interest in updates), Refuse (decline a request).",
+      "value": "ZeroicAI implements 11 FIPA ACL performatives that define message intent: Inform (share a fact), Request (ask for an action), Query (ask for information), Propose (suggest a course of action), Accept (agree to a proposal), Reject (decline a proposal), CFP (Call For Proposals — broadcast a task to multiple agents), Confirm (acknowledge a fact), Disconfirm (deny a belief), Subscribe (register interest in future updates), Refuse (decline to perform a request).",
       "certainty": 1.0
     },
     {
       "key": "bdi",
-      "value": "BDI stands for Beliefs, Desires, Intentions — a classic cognitive architecture from AI research (Rao & Georgeff). Beliefs represent the agent's world model, Desires represent goals it wants to achieve, and Intentions represent the plans it has committed to. ZeroicAI implements BDI in z-cognition with BeliefBase, goal reasoning, and a plan library.",
+      "value": "BDI (Beliefs, Desires, Intentions) is a cognitive architecture from AI research (Rao & Georgeff, 1991). Beliefs = the agent's world model. Desires = goals it wants to achieve. Intentions = plans it's committed to executing. ZeroicAI implements full BDI in z-cognition: BeliefBase (beliefs), Goal/Desire structs (desires), IntentionStack (intentions), and a deliberate() method that runs the full BDI cycle — picks the highest-priority desire, plans how to achieve it, and pushes an intention.",
+      "certainty": 1.0
+    },
+    {
+      "key": "planner",
+      "value": "ZeroicAI's Planner uses BFS (breadth-first search) over a STRIPS-style forward state space. You define Action structs with preconditions (state facts that must be true) and effects (state facts to add or remove). The planner takes an initial State and a goal State, then finds the shortest sequence of applicable actions that transforms the initial state into one that satisfies the goal. Returns GoalNotAchievable if no plan exists within the depth limit (default 20).",
       "certainty": 1.0
     },
     {
       "key": "cognition_crate",
-      "value": "z-cognition provides: BeliefBase (queryable key-value knowledge store with certainty scores), ReasoningEngine (if-then rule matching with confidence scoring), UtilityFunction (numerical decision scoring), and Planner (action sequence planning with preconditions and effects). Agents can reason, plan, and make decisions without hard-coded logic.",
+      "value": "z-cognition gives agents real reasoning power: BeliefBase (key-value knowledge with certainty scores, queryable by key or confidence range), ReasoningEngine (forward-chaining rules — if conditions match input facts, fire the rule and return a conclusion with a confidence score), UtilityFunction (evaluate candidate decisions numerically — pick the highest-scoring option), Planner (BFS STRIPS action sequencing). All four work independently or together in a BDI agent.",
       "certainty": 1.0
     },
     {
       "key": "runtime",
-      "value": "z-runtime is the execution engine built on Tokio. It spawns agents as lightweight async tasks, manages their lifecycle (initialize → execute loop → shutdown), routes messages, and supervises with restart policies: Never, Always, OnFailure, ExponentialBackoff. Also provides a round-robin Scheduler, CircuitBreaker, MetricsRegistry, and agent Sandbox isolation.",
+      "value": "z-runtime is the execution engine. spawn_with_policy(agent, name, policy) registers the agent with the Supervisor and spawns it as a Tokio task. The lifecycle loop calls initialize() once, then loops execute() with a 200ms sleep. On error or panic, the Supervisor applies the restart policy. All agents are reachable by name through the Router for message passing. supervisor(), metrics(), scheduler() accessors expose the subsystems.",
       "certainty": 1.0
     },
     {
       "key": "supervisor",
-      "value": "The Supervisor monitors agents and restarts them on failure. Four restart strategies: Never (let it die permanently), Always (restart unconditionally on any stop), OnFailure (restart only on errors, not clean shutdowns), ExponentialBackoff (restart with increasing delays — 1s, 2s, 4s, 8s... up to configurable max). Prevents cascading failures.",
+      "value": "The Supervisor tracks every spawned agent and restarts on failure. Four restart policies: Never (let it die), Always (restart on any stop — clean or crashed), OnFailure (restart only on errors, not clean shutdowns), ExponentialBackoff (restart with doubling delays: 1s → 2s → 4s → 8s up to a configurable max). Circuit-breaker logic trips after too many consecutive failures to prevent thrashing.",
       "certainty": 1.0
     },
     {
       "key": "circuit_breaker",
-      "value": "The CircuitBreaker prevents cascading failures. It has three states: Closed (normal operation, requests pass through), Open (failure threshold exceeded, requests blocked immediately), and HalfOpen (testing recovery, allowing a probe request). Automatically transitions between states based on success/failure rates.",
+      "value": "The CircuitBreaker prevents cascading failures in agent systems. Three states: Closed (normal — all requests pass through), Open (failure threshold exceeded — requests blocked immediately and fail-fast), HalfOpen (recovery probe — one request allowed through to test if the system recovered). Automatically transitions: Closed → Open on too many failures, Open → HalfOpen after a timeout, HalfOpen → Closed on success or back to Open on failure.",
       "certainty": 1.0
     },
     {
       "key": "scheduler",
-      "value": "The Scheduler manages task queues and execution order. Supports four policies: RoundRobin (fair cycling through all agents), Priority (higher-priority agents execute first), FairShare (weighted time allocation), and FCFS (first-come-first-served). Prevents any single agent from monopolizing the runtime.",
+      "value": "The Scheduler controls execution order when multiple agents compete for runtime cycles. Four policies: RoundRobin (each agent gets equal turns — default), Priority (higher-priority agents execute first), FairShare (time-weighted allocation — agents with more work get proportionally more cycles), FCFS (first-come-first-served queue). Prevents any single agent from starving others.",
       "certainty": 1.0
     },
     {
       "key": "metrics",
-      "value": "MetricsRegistry collects runtime telemetry. Supports three metric types: Counter (monotonically increasing — messages sent, tasks completed), Gauge (current value — active agents, memory usage), and Histogram (distribution — latency, message size). All metrics support labels for filtering and aggregation. Exportable as JSON.",
+      "value": "MetricsRegistry provides runtime observability. Three metric types: Counter (monotonically increasing — messages sent, tasks completed, restarts), Gauge (current snapshot — active agent count, memory usage, queue depth), Histogram (distribution — message latency, execution time, message size). All metrics support key-value labels for filtering. Export as JSON for dashboards or alerting.",
       "certainty": 1.0
     },
     {
       "key": "sandbox",
-      "value": "The Sandbox provides agent isolation with configurable resource limits: CPU quota (max CPU time per cycle), memory limits (max heap usage), thread limits, and network isolation flags. Prevents a misbehaving agent from starving or crashing the entire runtime.",
+      "value": "The Sandbox gives each agent configurable resource limits: CPU quota (max execution time per cycle), memory limit (max heap usage), thread limit, and network isolation flags. A misbehaving agent that consumes too much CPU or memory gets throttled without affecting other agents. Essential for untrusted or user-supplied agent code.",
       "certainty": 1.0
     },
     {
       "key": "agent_trait",
-      "value": "The Agent trait is the core abstraction. Implement four async methods: id() → &AgentId (return the agent's unique UUID), initialize(&mut self, ctx) → AgentResult (setup, called once at start), execute(&mut self, ctx) → AgentResult (main logic, called in a loop), shutdown(&mut self, ctx) → AgentResult (cleanup, called on stop). Use #[async_trait] from the async-trait crate.",
+      "value": "Implementing the Agent trait requires four async methods:\n• id(&self) → &AgentId — return your agent's unique UUID-based identity\n• initialize(&mut self, ctx: &AgentContext) → AgentResult — setup once at start\n• execute(&mut self, ctx: &AgentContext) → AgentResult — main logic, called in a loop\n• shutdown(&mut self, ctx: &AgentContext) → AgentResult — cleanup on stop\nAdd #[async_trait] from the async-trait crate. Optionally override handle_message for inter-agent communication.",
       "certainty": 1.0
     },
     {
       "key": "agent_context",
-      "value": "AgentContext is passed to every lifecycle method. It provides: self.id() for the agent's AgentId, ctx.log_info(msg) and ctx.log_error(msg) for structured logging, and ctx.send_message(receiver_name, performative, content) to communicate with other agents. The runtime injects this — you don't construct it yourself.",
+      "value": "AgentContext is injected by the runtime into every lifecycle method. It provides: ctx.send_message(receiver_name, performative, content) to send messages to other agents, ctx.log_info(msg) and ctx.log_error(msg) for structured logging, and self.id() for the agent's own AgentId. You never construct AgentContext — the runtime creates and passes it. Keep your agent logic pure; use ctx for all side effects.",
       "certainty": 1.0
     },
     {
       "key": "agent_id",
-      "value": "AgentId is a UUID v4-based unique identifier for every agent. Created with AgentId::new() or AgentId::from_name('my-agent') for named agents. Used for message routing, logging, supervision, and metrics. Every agent must implement the id() method returning a reference to its AgentId.",
+      "value": "AgentId is a UUID v4-based unique identifier. AgentId::new() generates a fresh random ID. AgentId::from_name('my-agent') produces a stable deterministic ID from a string (useful for named services). AgentIds are used everywhere: message routing, supervision, metrics tagging, and logging. Implement id() in your Agent trait to return a reference to your stored AgentId.",
       "certainty": 1.0
     },
     {
       "key": "handle_message",
-      "value": "Override handle_message in your Agent impl to receive messages from other agents. The signature is: async fn handle_message(&mut self, msg: Message, ctx: &AgentContext) → AgentResult. The runtime delivers messages through the Router while the agent's execute loop is running. Messages include sender ID, performative type, and serialized content.",
+      "value": "Override handle_message in your Agent impl to receive messages. Signature: async fn handle_message(&mut self, ctx: &AgentContext, sender: &str, performative: &str, content: &str) → AgentResult. The runtime delivers messages from the Router while the execute loop is running — both can be active concurrently since agents are async. Messages include the sender name, performative string, and content payload.",
       "certainty": 1.0
     },
     {
       "key": "getting_started",
-      "value": "Getting started: (1) Add to Cargo.toml: z-core = { git = 'https://github.com/zeroicai/z-core' } plus tokio and async-trait. (2) Implement the Agent trait on your struct. (3) Create a Runtime and spawn your agent: Runtime::new().spawn(Box::new(agent), 'my-agent').await. (4) The runtime handles the rest — lifecycle, messaging, supervision.",
+      "value": "Getting started: (1) Add to Cargo.toml: z-core and z-runtime from GitHub (git = 'https://github.com/ZeroicAI/z-core', branch = 'main'). Add tokio with features=['full'] and async-trait. (2) Define a struct and impl Agent on it — implement id(), initialize(), execute(), shutdown(). (3) In main: let rt = Runtime::with_config(config); rt.spawn_with_policy(Box::new(agent), 'my-agent', RestartPolicy::OnFailure).await; rt.run().await. See z-examples for working code.",
       "certainty": 1.0
     },
     {
       "key": "installation",
-      "value": "Add ZeroicAI to your Cargo.toml:\n\n[dependencies]\nz-core = { git = 'https://github.com/zeroicai/z-core', branch = 'main' }\nz-messaging = { git = 'https://github.com/zeroicai/z-messaging', branch = 'main' }\ntokio = { version = '1.0', features = ['full'] }\nasync-trait = '0.1'\n\nOr use the facade crate for everything at once:\nzeroicai = { git = 'https://github.com/zeroicai/zeroicai', branch = 'main' }",
+      "value": "Add to Cargo.toml:\n\n[dependencies]\nz-core = { git = 'https://github.com/ZeroicAI/z-core', branch = 'main' }\nz-runtime = { git = 'https://github.com/ZeroicAI/z-runtime', branch = 'main' }\ntokio = { version = '1', features = ['full'] }\nasync-trait = '0.1'\n\nFor cognition and patterns, add z-cognition and z-patterns the same way. Or use the facade crate:\nzeroicai = { git = 'https://github.com/ZeroicAI/zeroicai', branch = 'main' }",
       "certainty": 1.0
     },
     {
       "key": "how_it_works",
-      "value": "You implement the Agent trait with initialize(), execute(), and shutdown(). The Runtime spawns your agent as an async Tokio task, calls initialize() once, then loops execute() continuously. Agents communicate through a Router by name. If an agent panics or returns an error, the Supervisor applies the configured restart policy. The Scheduler controls execution order when many agents compete for runtime.",
+      "value": "You implement the Agent trait. Runtime::with_config(config) creates the runtime. spawn_with_policy(Box::new(agent), name, policy) registers your agent with the Supervisor and spawns it as a Tokio task. The runtime calls initialize() once, then loops execute() with a small sleep. Agents call ctx.send_message() to talk to each other — the Router delivers messages by name. If execute() returns an error, the Supervisor applies the restart policy. rt.run().await keeps everything alive.",
+      "certainty": 1.0
+    },
+    {
+      "key": "z_examples",
+      "value": "The z-examples repo (github.com/ZeroicAI/z-examples) has working, runnable examples:\n• hello_agent — minimal Agent trait implementation\n• cognitive_agent — BDI reasoning with BeliefBase and ReasoningEngine\n• market_pattern — auction between buyer and seller agents\n• swarm_pattern — decentralized flocking with emergent behavior\n• supervised_agents — OnFailure and ExponentialBackoff restart policies\n• full_system — all 5 crates wired together in one program\nRun any example: cargo run --example <name>",
+      "certainty": 1.0
+    },
+    {
+      "key": "agent_design",
+      "value": "Best practices for ZeroicAI agents: (1) Keep state in the agent struct — agents are long-lived, stateful objects. (2) Use initialize() for expensive setup (DB connections, API clients) — not in new(). (3) Keep execute() fast — add tokio::time::sleep if the agent doesn't have work to avoid busy-looping. (4) Use handle_message() for reactive behavior, execute() for proactive behavior. (5) Use AgentId::from_name() for well-known agents so routing by name is stable across restarts.",
+      "certainty": 1.0
+    },
+    {
+      "key": "deployment",
+      "value": "ZeroicAI agents deploy anywhere Rust binaries run. The live chat at zeroicai.xyz runs on Railway — the z-runtime web binary is deployed as a Docker container (Railway auto-detects the Cargo.toml). Environment variables: PORT (server port), ANTHROPIC_API_KEY (LLM fallback key), CLAUDE_MODEL (optional model override). For multi-agent production systems, each agent group can run as a separate Railway service communicating over TCP.",
+      "certainty": 1.0
+    },
+    {
+      "key": "testing",
+      "value": "Testing ZeroicAI agents: (1) Unit test cognition directly — BeliefBase, ReasoningEngine, and Planner have no async dependencies, test them inline. (2) For async agent logic, use #[tokio::test] on your test functions. (3) The Planner has its own test suite in z-cognition/tests/planning_tests.rs — model your tests after those. (4) For integration tests, spawn real agents with Runtime::with_config() in a test and let them run for a short duration. cargo test works across the whole workspace.",
       "certainty": 1.0
     },
     {
       "key": "why_rust",
-      "value": "Rust gives ZeroicAI: (1) Zero-cost async with Tokio — thousands of agents run as lightweight tasks. (2) Memory safety without garbage collection — no GC pauses in agent logic. (3) Fearless concurrency — the type system prevents data races across agents. (4) Compile-time correctness — message types, agent states, and error handling are all checked at compile time. (5) Native performance — agents run at native CPU speed.",
+      "value": "Rust gives ZeroicAI: (1) Zero-cost async — Tokio tasks are lightweight, thousands of agents run concurrently with minimal overhead. (2) Memory safety — no garbage collector, no GC pauses in agent execution. (3) Fearless concurrency — the type system prevents data races across agents at compile time. (4) Native performance — agents run at full CPU speed with no VM or interpreter. (5) Compile-time correctness — message types, agent states, and error handling all checked before the program runs.",
       "certainty": 1.0
     },
     {
       "key": "comparison",
-      "value": "vs. CrewAI / AutoGen / LangGraph: Those are Python LLM orchestration frameworks — they chain LLM calls. ZeroicAI is a real multi-agent runtime with supervised lifecycles, typed messaging, and cognitive reasoning that doesn't require an LLM. vs. Erlang/OTP: Similar supervised actor model, but ZeroicAI adds BDI cognition and domain-specific agent patterns. vs. Akka: JVM-based actor framework; ZeroicAI is Rust-native with no JVM overhead.",
+      "value": "ZeroicAI vs. the field: CrewAI/AutoGen/LangGraph are Python LLM-orchestration layers — they chain LLM calls. ZeroicAI is a real autonomous agent runtime that doesn't need an LLM to function. vs. Erlang/OTP: same supervised actor philosophy, but ZeroicAI adds BDI cognition and domain-specific coordination patterns on top. vs. Akka: JVM-based actor system; ZeroicAI is Rust-native with no JVM overhead, no GC, and FIPA-standard messaging baked in.",
       "certainty": 1.0
     },
     {
       "key": "performance",
-      "value": "ZeroicAI performance targets: agent spawn latency < 1ms, message passing latency < 10 microseconds, throughput > 100,000 messages/second, and ~50KB memory baseline per agent. Built on Tokio's async runtime — agents are lightweight tasks, not OS threads. Thousands can run concurrently on a single machine.",
+      "value": "ZeroicAI performance targets: agent spawn < 1ms, message passing < 10µs, throughput > 100,000 messages/second, ~50KB memory baseline per agent. Agents are Tokio async tasks — not OS threads. A standard server can run thousands of agents concurrently. No GC pauses, no boxing overhead on hot paths. Metrics are collected lock-free where possible.",
       "certainty": 1.0
     },
     {
       "key": "vision",
-      "value": "ZeroicAI's vision is three layers: (1) Agent-Oriented Programming — the framework itself (current focus). (2) Agentic App Development — an SDK and tooling for building complete agent applications. (3) Agentic App Deployment — infrastructure to run agents reliably in production. The goal is to be the Rust-native standard for autonomous agent systems.",
+      "value": "ZeroicAI's vision is three layers: (1) Agent-Oriented Programming — the framework itself (current focus). (2) Agentic App Development — an SDK and high-level tooling for building complete agent applications without touching the low-level framework. (3) Agentic App Deployment — production infrastructure to run, monitor, and scale agent systems reliably. Goal: become the Rust-native standard for building autonomous agent systems.",
       "certainty": 1.0
     },
     {
       "key": "roadmap",
-      "value": "ZeroicAI roadmap: Phase 1 (Complete) — core framework: z-core, z-messaging, z-cognition, z-patterns, z-runtime. Phase 2 (Current) — stabilization: API review, test coverage, benchmarks, documentation. Phase 3 (Next) — production hardening: deployment CLI, monitoring, security auditing. Version 1.0 — stable API with semver guarantees, production-ready runtime.",
+      "value": "ZeroicAI roadmap: Phase 1 (Done) — core framework built: z-core, z-messaging, z-cognition, z-patterns, z-runtime all compiling with real implementations. Phase 2 (Now) — stabilization: API consistency review, comprehensive test coverage, performance benchmarks, documentation. Phase 3 (Next) — production hardening: deployment CLI, monitoring integrations, security audit. Version 1.0 — stable API with semver guarantees and a production-ready runtime.",
       "certainty": 1.0
     },
     {
       "key": "products",
-      "value": "ZeroicAI is building four products on top of the framework: Cortex (cognitive agent platform), Arena (multi-agent simulation environment), Recall (agent memory and knowledge system), and xBot (the X/Twitter agent — already live). All products are built with the ZeroicAI framework itself.",
+      "value": "ZeroicAI is building four products on the framework: Cortex (cognitive agent platform for deploying and managing agents in production), Arena (multi-agent simulation environment for testing coordination strategies), Recall (persistent agent memory — episodic storage and knowledge retrieval for long-running agents), and xBot (live on X/Twitter — the first real ZeroicAI application in production). All four are built with ZeroicAI itself.",
       "certainty": 1.0
     },
     {
       "key": "cortex",
-      "value": "Cortex is ZeroicAI's cognitive agent platform — a higher-level product built on top of the framework for deploying and managing intelligent agents in production. Currently in development.",
+      "value": "Cortex is ZeroicAI's cognitive agent platform — a higher-level product for deploying, monitoring, and managing intelligent agents at scale without touching the low-level framework API. Think a managed runtime with a dashboard. Currently in development. Built on z-runtime and z-cognition.",
       "certainty": 1.0
     },
     {
       "key": "arena",
-      "value": "Arena is ZeroicAI's multi-agent simulation environment. It lets you simulate, test, and benchmark multi-agent systems before deploying them in production. Run thousands of agents against each other, measure emergent behavior, and tune coordination strategies.",
+      "value": "Arena is ZeroicAI's multi-agent simulation environment. Run thousands of agents against each other in a simulated environment, measure emergent coordination behavior, tune strategies, and benchmark before deploying to production. Built on z-patterns and z-runtime. In development.",
       "certainty": 1.0
     },
     {
       "key": "recall",
-      "value": "Recall is ZeroicAI's agent memory and knowledge system — persistent belief storage, episodic memory, and knowledge retrieval for long-running agents. Agents using Recall can remember past interactions, learn from experience, and build up domain knowledge over time.",
+      "value": "Recall is ZeroicAI's agent memory system — persistent episodic storage and knowledge retrieval for long-running agents. Agents using Recall remember past interactions, accumulate domain knowledge, and retrieve relevant memories during reasoning. Built on z-cognition's BeliefBase with a durable storage layer. In development.",
       "certainty": 1.0
     },
     {
       "key": "xbot",
-      "value": "ZeroicAI xBot is the first real application built on the framework — an X/Twitter bot that demonstrates the framework in production. It uses the Agent trait, BDI reasoning with a knowledge base, and scheduled execution via tokio-cron-scheduler to generate and post content about ZeroicAI.",
+      "value": "ZeroicAI xBot is a live application running on X/Twitter — the first production proof that the framework works. It's a CognitiveAgent that uses BeliefBase, ReasoningEngine, and tokio-cron-scheduler to generate and post content about ZeroicAI. The same agent runs locally for replies and on a cron schedule for posts. Follow @ZeroicAI on X to see it in action.",
       "certainty": 1.0
     },
     {
       "key": "open_source",
-      "value": "ZeroicAI is fully open source under dual MIT and Apache-2.0 license. All crates are on GitHub at github.com/zeroicai. Contributions are welcome — open issues, submit PRs, improve docs, or add examples. The community is growing.",
+      "value": "ZeroicAI is fully open source. All crates — z-core, z-messaging, z-cognition, z-patterns, z-runtime, zeroicai, z-examples, z-docs — are on GitHub at github.com/ZeroicAI. Dual-licensed under MIT and Apache-2.0. Contributions are welcome: open issues, submit PRs, improve documentation, add examples, or help write benchmarks.",
       "certainty": 1.0
     },
     {
       "key": "github",
-      "value": "ZeroicAI is on GitHub at https://github.com/zeroicai. Repositories: zeroicai/z-core, zeroicai/z-messaging, zeroicai/z-cognition, zeroicai/z-patterns, zeroicai/z-runtime, zeroicai/zeroicai (facade), zeroicai/z-examples, and zeroicai/z-docs. All open source under MIT and Apache-2.0.",
+      "value": "ZeroicAI GitHub organization: https://github.com/ZeroicAI. Repositories: ZeroicAI/z-core, ZeroicAI/z-messaging, ZeroicAI/z-cognition, ZeroicAI/z-patterns, ZeroicAI/z-runtime, ZeroicAI/zeroicai (facade), ZeroicAI/z-examples (runnable examples), ZeroicAI/z-docs (mdBook documentation), ZeroicAI/z-xbot (the Twitter bot). All open source, MIT + Apache-2.0.",
       "certainty": 1.0
     },
     {
       "key": "community",
-      "value": "Join the ZeroicAI community: GitHub at github.com/zeroicai to contribute code, Discord for discussions and support, and X/Twitter @zeroicai for updates. The framework is in active development — your feedback shapes the roadmap.",
+      "value": "Join the ZeroicAI community: GitHub at github.com/ZeroicAI to file issues and contribute code, and X/Twitter @ZeroicAI for updates and announcements. The framework is in active development — your feedback directly shapes what gets built next. Star the repos to stay updated.",
       "certainty": 1.0
     },
     {
       "key": "owner",
-      "value": "ZeroicAI was created by Daniel, a full-stack developer from Nigeria. He designed the framework architecture, built all five core crates, and is leading the project toward a stable 1.0 release. Follow the project at github.com/zeroicai.",
+      "value": "ZeroicAI was created by Daniel, a full-stack developer based in Nigeria. He designed the framework architecture from the ground up, built all five core crates in Rust, and is leading the project toward a stable 1.0 release. You can find him on GitHub at github.com/pycogram and follow the project at github.com/ZeroicAI.",
       "certainty": 1.0
     },
     {
       "key": "examples",
-      "value": "What you can build with ZeroicAI: (1) Algorithmic trading systems — agents monitor markets, execute trades, manage risk. (2) Swarm robotics — coordinate autonomous drone fleets. (3) Customer support — specialist agents handle different topics in parallel. (4) DevOps automation — agents monitor services and auto-heal failures. (5) Supply chain coordination — agents negotiate, allocate resources, and optimize logistics. (6) Research simulations — run multi-agent experiments at scale.",
+      "value": "What you can build with ZeroicAI: (1) Algorithmic trading systems — agents monitor markets, generate signals, execute trades, manage risk independently. (2) Swarm robotics — coordinate autonomous drone or robot fleets with emergent behavior. (3) Self-healing services — DevOps agents that monitor infrastructure and auto-recover failures. (4) Customer support systems — specialist agents handle different topics in parallel. (5) Supply chain — agents negotiate, allocate resources, and optimize logistics. (6) Game AI — NPCs with BDI cognition that plan, reason, and adapt.",
       "certainty": 1.0
     },
     {
       "key": "use_cases",
-      "value": "ZeroicAI use cases span: Blockchain/DeFi (autonomous trading agents, MEV bots, cross-chain coordination), Financial systems (portfolio optimization, market making, risk management), Robotics/IoT (swarm coordination, sensor networks, autonomous vehicles), Enterprise (workflow automation, supply chain, multi-party processes), and Research (multi-agent simulations, emergent behavior studies).",
-      "certainty": 1.0
-    },
-    {
-      "key": "why_rust",
-      "value": "Rust gives ZeroicAI zero-cost async with Tokio, memory safety without a garbage collector, fearless concurrency across agents, and compile-time correctness. Agents run as lightweight async tasks — you can run thousands concurrently using minimal memory. No GC pauses, no runtime exceptions, no data races.",
+      "value": "ZeroicAI use cases: DeFi and trading (autonomous MEV bots, portfolio agents, cross-chain coordinators), self-healing infrastructure (monitor-and-repair DevOps agents, incident response automation), swarm simulations (robotics research, traffic modeling, crowd simulation), reasoning chatbots (BDI-powered agents that plan before responding), IoT coordination (sensor networks, smart building systems), and Game AI (NPCs with real cognitive loops, not scripted behavior trees).",
       "certainty": 1.0
     },
     {
       "key": "robotics",
-      "value": "Yes, ZeroicAI is well-suited for robotics. The Swarm pattern coordinates autonomous robot fleets with emergent behavior, the Hierarchy pattern enables command-chain control systems, and the Coalition pattern lets robots with different capabilities team up for complex tasks. You bring your sensor/actuator libraries — ZeroicAI handles the agent coordination layer.",
+      "value": "ZeroicAI is well-suited for robotics and IoT. The Swarm pattern coordinates autonomous robot or drone fleets with emergent flocking/foraging behavior — no central controller needed. The Hierarchy pattern enables command-chain control systems. The Coalition pattern lets robots with different capabilities team up. Bring your sensor and actuator libraries — ZeroicAI handles agent coordination, message passing, and lifecycle management.",
       "certainty": 1.0
     },
     {
       "key": "agent_vs_microservice",
-      "value": "An agent is proactive — it perceives its environment, reasons about its goals, and acts on its own initiative. A microservice is reactive — it waits for requests and responds. ZeroicAI agents have beliefs (world model), can reason and plan, initiate communication, and adapt their behavior. Microservices just process inputs to outputs. ZeroicAI's actor model is closer to Erlang/OTP than REST.",
+      "value": "Agents vs microservices: a microservice is reactive — it waits for requests and responds. An agent is proactive — it has beliefs, goals, and plans; it acts on its own initiative without waiting to be called. ZeroicAI agents perceive their environment, reason about their goals, communicate with peers, and adapt their behavior. The model is closer to Erlang/OTP actors with cognition than to REST services with endpoints.",
       "certainty": 1.0
     },
     {
       "key": "external_apis",
-      "value": "ZeroicAI agents integrate with external APIs using standard Rust HTTP libraries — reqwest is already a dependency in z-runtime. Call REST APIs, WebSockets, databases, or any external service inside your execute() or handle_message() methods. The agent framework handles concurrency and lifecycle; you handle the API logic.",
+      "value": "ZeroicAI agents integrate with any external system using standard Rust libraries inside execute() or handle_message(). reqwest is already a dependency in z-runtime — use it for HTTP/REST calls. For WebSockets, databases, queues, or blockchain RPCs, add the relevant Rust crate to your project's Cargo.toml. The agent framework handles concurrency and lifecycle; you write the integration logic.",
       "certainty": 1.0
     },
     {
       "key": "fipa",
-      "value": "FIPA (Foundation for Intelligent Physical Agents) is an IEEE standards body for agent communication. ZeroicAI implements FIPA Agent Communication Language (ACL) performatives for interoperability. This means ZeroicAI agents can potentially communicate with other FIPA-compliant agent systems.",
+      "value": "FIPA (Foundation for Intelligent Physical Agents) is an IEEE standards body for agent communication languages. ZeroicAI implements the FIPA ACL (Agent Communication Language) — 11 performatives covering the full range of agent dialogue acts. Using a standard means ZeroicAI agents could interoperate with other FIPA-compliant systems and the design draws on decades of multi-agent research.",
       "certainty": 1.0
     },
     {
       "key": "license",
-      "value": "ZeroicAI is dual-licensed under MIT and Apache-2.0. You can choose whichever license suits your project. Both allow commercial use, modification, and distribution. Contributions are also dual-licensed under the same terms.",
+      "value": "ZeroicAI is dual-licensed under MIT and Apache-2.0. You choose which license applies to your use. Both allow commercial use, modification, and distribution with minimal restrictions. Contributions are accepted under the same dual license. There are no CLA requirements — just open a PR.",
       "certainty": 1.0
     },
     {
       "key": "docs",
-      "value": "ZeroicAI documentation: Website at zeroicai.org, API docs at docs.rs/zeroicai, getting started guide at zeroicai.org/docs/getting-started, and mdBook docs in the z-docs repo. Working examples covering all 5 crates and all 8 patterns are in the z-examples repo at github.com/zeroicai/z-examples.",
+      "value": "ZeroicAI documentation: Main website at zeroicai.xyz, getting-started guide at zeroicai.xyz/docs/getting-started, crate docs at zeroicai.xyz/crates, and mdBook reference docs in the ZeroicAI/z-docs repo. Runnable examples are in ZeroicAI/z-examples on GitHub — each example is a complete working program you can run with cargo run --example <name>.",
       "certainty": 1.0
     },
     {
       "key": "status",
-      "value": "ZeroicAI status: The core framework (all 5 crates) is complete and compiling. Currently in Phase 2 — stabilization. API review and consistency pass, comprehensive test coverage, performance benchmarking, and documentation are in progress. Working toward a stable 1.0 release.",
+      "value": "Current status: All 5 core crates are implemented and compiling — z-core, z-messaging, z-cognition (with real BFS planner and BDI deliberation), z-patterns (with runtime bridge), z-runtime (with Supervisor wired in). In Phase 2 stabilization: API review, test coverage, benchmarks, and documentation in progress. The live chat at zeroicai.xyz is running in production on Railway. Targeting stable 1.0.",
       "certainty": 1.0
     },
     {
       "key": "defi",
-      "value": "For DeFi, ZeroicAI agents can monitor on-chain events, execute trades autonomously, manage positions, and coordinate across protocols. The Market pattern handles auction-based resource allocation. The Swarm pattern enables decentralized MEV strategies. Agents can integrate with any Rust Ethereum/Solana library in their execute() method.",
+      "value": "For DeFi, ZeroicAI agents can monitor on-chain events, execute trades autonomously, manage positions, and coordinate strategies across protocols. Market pattern handles auction-based task allocation — useful for MEV sequencing. Coalition pattern lets agents with different capabilities (price oracles, execution agents, risk monitors) form temporary task-specific teams. Integrate with any Rust Ethereum or Solana library inside execute().",
       "certainty": 1.0
-    },
-    {
-      "key": "llm:ask_for_my_name_?",
-      "value": "I'm sorry, but I cannot directly ask or provide personal information such as your name based on these facts alone. However, if you were using the ZeroicAI framework to build a multi-agent system and needed help getting started with naming conventions within that context, feel free to reach out for guidance!",
-      "certainty": 0.8
-    },
-    {
-      "key": "llm:what_are_the_pattherns?",
-      "value": "I apologize, but there seems to be a misunderstanding or typo. I cannot provide information on \"pattherns\" as it is not mentioned among the verified facts about ZeroicAI framework provided above. Could you please clarify if this relates to organizational patterns within ZeroicAI? If so, could it perhaps mean 'patterns' in that context?",
-      "certainty": 0.8
     }
   ]
 }

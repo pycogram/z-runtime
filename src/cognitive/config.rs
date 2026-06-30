@@ -16,8 +16,18 @@ impl LlmConfig {
     pub fn from_file(path: &str) -> Self {
         let contents = fs::read_to_string(path)
             .unwrap_or_else(|e| panic!("Could not read config file '{}': {}", path, e));
-        serde_json::from_str(&contents)
-            .unwrap_or_else(|e| panic!("Invalid config JSON in '{}': {}", path, e))
+        let mut config: Self = serde_json::from_str(&contents)
+            .unwrap_or_else(|e| panic!("Invalid config JSON in '{}': {}", path, e));
+        // Override with env vars — lets Railway/prod set secrets without touching the JSON
+        if let Ok(key) = std::env::var("ANTHROPIC_API_KEY") {
+            if !key.is_empty() {
+                config.api_key = key;
+                config.llm_provider = "claude".to_string();
+                config.llm_model = std::env::var("CLAUDE_MODEL")
+                    .unwrap_or_else(|_| "claude-haiku-4-5-20251001".to_string());
+            }
+        }
+        config
     }
 
     pub fn default_ollama() -> Self {
