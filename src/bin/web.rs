@@ -47,8 +47,12 @@ fn add_rules(agent: &mut CognitiveAgent) {
     agent.add_rule(Rule::new("greeting:greeting").with_condition("greeting").with_conclusion("greeting"));
 
     // -- What is ZeroicAI (general) --
+    // "zeroic" alone catches spaced variants: "Zeroic AI", "Zeroic AI A?", etc.
+    agent.add_rule(Rule::new("topic:zeroic_name")
+        .with_condition("zeroic")
+        .with_conclusion("what_is_zeroicai"));
     agent.add_rule(Rule::new("topic:what_is")
-        .with_condition("what").with_condition("is").with_condition("zeroicai")
+        .with_condition("what").with_condition("zeroicai")
         .with_conclusion("what_is_zeroicai"));
 
     // -- Layman / simple explanation --
@@ -363,6 +367,36 @@ fn add_rules(agent: &mut CognitiveAgent) {
         .with_condition("defi").with_condition("crypto").with_condition("mev")
         .with_condition("onchain").with_condition("solana").with_condition("ethereum")
         .with_conclusion("defi"));
+
+    // -- Examples repo --
+    agent.add_rule(Rule::new("topic:z_examples")
+        .with_condition("z-examples").with_condition("hello_agent").with_condition("cargo")
+        .with_condition("run").with_condition("hello").with_condition("runnable")
+        .with_conclusion("z_examples"));
+
+    // -- Planner / STRIPS --
+    agent.add_rule(Rule::new("topic:planner")
+        .with_condition("planner").with_condition("strips").with_condition("precondition")
+        .with_condition("effect").with_condition("action").with_condition("sequence")
+        .with_conclusion("planner"));
+
+    // -- Agent design / best practices --
+    agent.add_rule(Rule::new("topic:agent_design")
+        .with_condition("design").with_condition("best").with_condition("practice")
+        .with_condition("architect").with_condition("pattern").with_condition("structure")
+        .with_conclusion("agent_design"));
+
+    // -- Deployment --
+    agent.add_rule(Rule::new("topic:deployment")
+        .with_condition("deploy").with_condition("railway").with_condition("docker")
+        .with_condition("production").with_condition("cloud").with_condition("host")
+        .with_conclusion("deployment"));
+
+    // -- Testing --
+    agent.add_rule(Rule::new("topic:testing")
+        .with_condition("test").with_condition("testing").with_condition("unit")
+        .with_condition("integration").with_condition("cargo").with_condition("assert")
+        .with_conclusion("testing"));
 }
 
 #[tokio::main]
