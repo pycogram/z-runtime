@@ -319,6 +319,16 @@
       "key": "defi",
       "value": "For DeFi, ZeroicAI agents can monitor on-chain events, execute trades autonomously, manage positions, and coordinate strategies across protocols. Market pattern handles auction-based task allocation — useful for MEV sequencing. Coalition pattern lets agents with different capabilities (price oracles, execution agents, risk monitors) form temporary task-specific teams. Integrate with any Rust Ethereum or Solana library inside execute().",
       "certainty": 1.0
+    },
+    {
+      "key": "token",
+      "value": "ZeroicAI has a token on Pump.fun. Name: ZeroicAI, Ticker: 0ICAI, Contract Address: yi66MMYBeHvMAbiboJeqVcjXh3b746D3P6nCRfypump. Deployed on Solana.",
+      "certainty": 1.0
+    },
+    {
+      "key": "token_ca",
+      "value": "The ZeroicAI token contract address (CA) is: yi66MMYBeHvMAbiboJeqVcjXh3b746D3P6nCRfypump — find it on Pump.fun.",
+      "certainty": 1.0
     }
   ]
 }
