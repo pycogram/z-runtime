@@ -267,7 +267,7 @@
     },
     {
       "key": "owner",
-      "value": "ZeroicAI was created by Daniel, a full-stack developer based in the USA. He designed the framework architecture from the ground up, built all five core crates in Rust, and is leading the project toward a stable 1.0 release. You can find him on GitHub at github.com/pycogram and follow the project at github.com/ZeroicAI.",
+      "value": "ZeroicAI was created by Daniel, a full-stack developer based in the USA. He designed the framework architecture from the ground up, built all five core crates in Rust, and is leading the project toward a stable 1.0 release. Find him on GitHub and X/Twitter at @pycogram, and follow the project at github.com/ZeroicAI.",
       "certainty": 1.0
     },
     {
